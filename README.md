@@ -15,4 +15,4 @@ Install pygame: enter pip install pygame in the terminal
    - Use left shift key to hold the current block
 4. Rotating the blocks:
    - Use the arrow up key to rotate the blocks to your preferred rotation
-5. After game over, press any key to restart the game
+5. After game over, press any key to save your score
