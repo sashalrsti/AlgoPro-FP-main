@@ -1,6 +1,6 @@
 # Tetris
 #### Project Name: Tetris
-#### Project Overview: A modified remake of the classic Tetris game reimagined wi
+#### Project Overview: A modified remake of the classic Tetris game reimagined with a more galactic theme.
 
 # Important Things to Install:
 Install pygame: enter pip install pygame in the terminal
