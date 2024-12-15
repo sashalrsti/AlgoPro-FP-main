@@ -14,6 +14,7 @@ class Game:
         self.game_over = False
         self.score = 0
 
+    #updates the score based on the number of lines cleared and the points for moving the block down
     def update_score(self, lines_cleared, move_down_points):
         if lines_cleared == 1:
             self.score += 100
@@ -24,7 +25,9 @@ class Game:
         self.score += move_down_points
         print(self.score)
 
+    #returns a random block from the list of available blocks
     def get_random_block(self):
+        #If the list of blocks is empty, it re-populates it
         if len(self.blocks) == 0:
             self.blocks = [IBlock(), JBlock(), LBlock(), SBlock(), TBlock(), OBlock(), ZBlock()]
         block = random.choice(self.blocks)
@@ -52,16 +55,19 @@ class Game:
         
         self.can_hold = False  # Prevent holding again until next block
     
+    #This method moves the current block one unit to the left
     def move_left(self):
         self.current_block.move(0, -1)
         if self.block_inside() == False or self.block_fits() == False:
             self.current_block.move(0, 1)
 
+    #This method moves the current block one unit to the right
     def move_right(self):
         self.current_block.move(0, 1)
         if self.block_inside() == False or self.block_fits() == False:
             self.current_block.move(0, -1)
 
+    #This method moves the current block one unit down
     def move_down(self):
         self.current_block.move(1, 0)
         if self.block_inside() == False or self.block_fits() == False:
@@ -69,6 +75,7 @@ class Game:
             self.lock_block()
         self.can_hold = True  # Allow holding again after block moves down
 
+    #This method locks the current block into the grid when it can no longer move down
     def lock_block(self):
         tiles = self.current_block.get_cell_positions()
         for position in tiles:
@@ -82,6 +89,7 @@ class Game:
         if self.block_fits() == False:
             self.game_over = True
 
+    #Designed to reset the game to its initial state
     def reset(self):
         self.grid.reset()
         self.blocks = [IBlock(), JBlock(), LBlock(), SBlock(), TBlock(), OBlock(), ZBlock()]
@@ -91,6 +99,7 @@ class Game:
         self.can_hold = True
         self.score = 0
 
+    #Checks whether the current_block can fit into its current position on the grid
     def block_fits(self):
         tiles = self.current_block.get_cell_positions()
         for tile in tiles:
@@ -98,11 +107,13 @@ class Game:
                 return False
         return True
 
+    #Responsible for rotating the current block and checking if the rotated block still fits within the grid
     def rotate(self):
         self.current_block.rotate()
         if self.block_inside() == False or self.block_fits() == False:
             self.current_block.undo_rotation()
 
+    #Responsible for checking if the current block is entirely within the grid
     def block_inside(self):
         tiles = self.current_block.get_cell_positions()
         for tile in tiles:
@@ -110,6 +121,7 @@ class Game:
                 return False
         return True
     
+    #Responsible for rendering or drawing the game state onto the screen
     def draw(self, screen):
         self.grid.draw(screen)
         self.current_block.draw(screen)

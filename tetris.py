@@ -191,7 +191,7 @@ while True:
                     down_movement_timer = down_movement_interval
                 if event.key == pygame.K_UP and not game.game_over:
                     game.rotate()
-                if event.key == pygame.K_LSHIFT and not game.game_over:  # Changed to Left Shift key
+                if event.key == pygame.K_LSHIFT and not game.game_over:
                     game.hold_current_block()
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_LEFT:
@@ -203,30 +203,32 @@ while True:
             if event.type == GAME_UPDATE and not game.game_over:
                 game.move_down()
 
+    #Load background image for difficulty screen
     difficulty_bg_image = pygame.image.load('./assets/sprites/bg.png')
-    difficulty_bg_image = pygame.transform.scale(difficulty_bg_image, (screen.get_width(), screen.get_height()))  # Scale to fit the screen
+    difficulty_bg_image = pygame.transform.scale(difficulty_bg_image, (screen.get_width(), screen.get_height()))
 
+    #Renders difficulty select screen
     if game_state == DIFFICULTY_SELECT:
-        # Draw difficulty selection screen
         screen.blit(difficulty_bg_image, (0,0))
         screen.blit(select_difficulty_surface, (150, 200))
         screen.blit(easy_surface, (150, 250))
         screen.blit(normal_surface, (150, 300))
         screen.blit(hard_surface, (150, 350))
         
-        # Draw high scores
+        #Draw high scores and the names
         high_score_title = title_font.render("High Scores:", True, Colors.white)
         screen.blit(high_score_title, (150, 400))
         for i, score in enumerate(high_scores):
             score_text = title_font.render(f"{score['name']}: {score['score']}", True, Colors.white)
             screen.blit(score_text, (150, 450 + i * 30))
-            
+
+    #Renders name input screen        
     elif game_state == NAME_INPUT:
         screen.fill(Colors.dark_blue)
         screen.blit(name_input_prompt, (50, 250))
         name_input_surface = title_font.render(current_name + "_", True, Colors.white)
         screen.blit(name_input_surface, (200, 300))
-        
+   
     elif game_state == PLAYING:
         # Handle continuous movement
         if not game.game_over:
@@ -248,21 +250,24 @@ while True:
                     game.move_down()
                     down_movement_timer = down_movement_interval
 
+        #Renders the score text
         score_value_surface = title_font.render(str(int(game.score * current_score_multiplier)), True, Colors.white)
         
         screen.fill(Colors.dark_blue)
         screen.blit(background_image, (11, 11))
         screen.blit(overlay, (11, 11))
         
+        #Calls the draw method of the Game object to render all game elements
         game.draw(screen)
         
+        #Draws the specified panels and displays the specified texts
         pygame.draw.rect(screen, Colors.light_blue, score_rect, 0, 10)
         pygame.draw.rect(screen, Colors.light_blue, next_rect, 0, 10)
-        pygame.draw.rect(screen, Colors.light_blue, hold_rect, 0, 10)  # Draw hold area
+        pygame.draw.rect(screen, Colors.light_blue, hold_rect, 0, 10)
         screen.blit(score_surface, (375, 15, 50, 50))
         screen.blit(score_value_surface, score_value_surface.get_rect(center=(score_rect.centerx, score_rect.centery)))
         screen.blit(next_surface, (375, 150, 50, 50))
-        screen.blit(hold_surface, (375, 390, 50, 50))  # Draw hold text
+        screen.blit(hold_surface, (375, 390, 50, 50))
 
         if game.game_over == True:
             screen.blit(game_over_surface, (100, 280, 50, 50))
@@ -271,10 +276,11 @@ while True:
         # Draw the next block preview
         if game.next_block is not None:
             block_size = 30
+            #Saves the original offsets of the next_block
             original_offset = (game.next_block.row_offset, game.next_block.column_offset)
             game.next_block.row_offset = 0
             game.next_block.column_offset = 0
-            
+            #Retrieves the positions of all the cells (blocks) that make up the next_block
             positions = game.next_block.get_cell_positions()
             min_col = min(p.column for p in positions)
             max_col = max(p.column for p in positions)
@@ -286,13 +292,16 @@ while True:
             next_block_offset_x = next_rect.centerx - (block_width // 2)
             next_block_offset_y = next_rect.centery - (block_height // 2)
             
+            #Iterates over each cell of the next_block to calculate its position in the preview area and draw it
             for position in positions:
+                #These lines calculate the screen coordinates for each cell in the block
                 x_pos = next_block_offset_x + (position.column - min_col) * block_size
                 y_pos = next_block_offset_y + (position.row - min_row) * block_size
                 cell_rect = pygame.Rect(x_pos, y_pos, block_size - 1, block_size - 1)
                 scaled_texture = pygame.transform.scale(game.next_block.texture, (block_size - 1, block_size - 1))
                 screen.blit(scaled_texture, cell_rect)
             
+            #Restores the original offsets of the next_block to their previous values
             game.next_block.row_offset, game.next_block.column_offset = original_offset
 
         # Draw the hold block preview

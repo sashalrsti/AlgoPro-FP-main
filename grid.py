@@ -10,37 +10,44 @@ class Grid:
        self.grid = [[0 for j in range(self.num_cols)] for i in range(self.num_rows)]
        self.colors = Colors.get_cell_colors()
 
+    #Displays the grid as a 2D array in the console, where each cell's value is printed in a row-by-row format
     def print_grid(self):
         for row in range(self.num_rows):
             for column in range(self.num_cols):
                 print(self.grid[row][column], end = " ")
-            print()
+            print() #Moves to the next line after printing all columns in the current row
 
+    #To check if a cell is within the valid grid boundaries
     def is_inside(self, row, column):
         if row>= 0 and row < self.num_rows and column >= 0 and column < self.num_cols:
             return True
         return False
     
+    #To determine if a cell at the given row and column indices is unoccupied (empty)
     def is_empty(self, row, column):
         if self.grid[row][column] == 0:
             return True
         return False
     
+    #To determine if all cells in a given row are occupied (non-zero values)
     def is_row_full(self, row):
         for column in range(self.num_cols):
             if self.grid[row][column] == 0:
                 return False
         return True
     
+    #To reset a specific row in the grid, effectively removing any blocks in that row
     def clear_row(self, row):
         for column in range(self.num_cols):
             self.grid[row][column] = 0
 
+    #To move the content of a row down by a specified number of rows in the grid
     def move_row_down(self, row, num_rows):
         for column in range(self.num_cols):
             self.grid[row+num_rows][column] = self.grid[row][column]
             self.grid[row][column] = 0
 
+    #To check each row in the grid and clear any rows that are completely filled with blocks
     def clear_full_rows(self):
         completed = 0
         for row in range(self.num_rows-1, 0, -1):
@@ -51,6 +58,7 @@ class Grid:
                 self.move_row_down(row, completed)
         return completed
     
+    #Reset the grid to its initial state
     def reset(self):
         for row in range(self.num_rows):
             for column in range(self.num_cols):
@@ -86,7 +94,7 @@ class Grid:
                 else:
                     # If it's an empty space, draw a semi-transparent grid cell
                     empty_cell = pygame.Surface((self.cell_size - 1, self.cell_size - 1))
-                    empty_cell.fill(Colors.dark_grey)
+                    empty_cell.fill(Colors.dark_blue)
                     empty_cell.set_alpha(64)  # 25% opacity for empty cells
                     screen.blit(empty_cell, cell_rect)
                     
