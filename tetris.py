@@ -17,6 +17,7 @@ game_over_surface = title_font.render("GAME OVER", True, Colors.white)
 game_over1_surface = title_font.render("PRESS ANY KEY", True, Colors.white)
 
 #Difficulty selection text surfaces rendered for the difficulty selection screen
+tetris_surface = title_font.render("PLAY TETRIS", True, Colors.white)
 easy_surface = title_font.render("Easy: Press 1", True, Colors.white)
 normal_surface = title_font.render("Normal: Press 2", True, Colors.white)
 hard_surface = title_font.render("Hard: Press 3", True, Colors.white)
@@ -29,7 +30,7 @@ hold_rect = pygame.Rect(320, 430, 170, 180)
 
 #Creates the main game window (500x620) and sets the window title to "Walmart Tetris"
 screen = pygame.display.set_mode((500, 620))
-pygame.display.set_caption("Walmart Tetris")
+pygame.display.set_caption("Tetris")
 
 #Creates a clock object to control the game's frame rate
 clock = pygame.time.Clock()
@@ -210,6 +211,7 @@ while True:
     #Renders difficulty select screen
     if game_state == DIFFICULTY_SELECT:
         screen.blit(difficulty_bg_image, (0,0))
+        screen.blit(tetris_surface, (150, 150))
         screen.blit(select_difficulty_surface, (150, 200))
         screen.blit(easy_surface, (150, 250))
         screen.blit(normal_surface, (150, 300))
@@ -225,7 +227,7 @@ while True:
     #Renders name input screen        
     elif game_state == NAME_INPUT:
         screen.fill(Colors.dark_blue)
-        screen.blit(name_input_prompt, (50, 250))
+        screen.blit(name_input_prompt, (100, 250))
         name_input_surface = title_font.render(current_name + "_", True, Colors.white)
         screen.blit(name_input_surface, (200, 300))
    
