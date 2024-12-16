@@ -1,9 +1,9 @@
-import pygame #Used for game development
+import pygame
 import sys #For system-related functions like exiting the game
 import json #For handling high score storage in a JSON file
 import os #For file path and existence checks
-from game import Game #A custom class managing game logic
-from colors import Colors #A custom module defining color constants
+from game import Game
+from colors import Colors 
 
 pygame.init()
 
@@ -221,7 +221,7 @@ while True:
         high_score_title = title_font.render("High Scores:", True, Colors.white)
         screen.blit(high_score_title, (150, 400))
         for i, score in enumerate(high_scores):
-            score_text = title_font.render(f"{score['name']}: {score['score']}", True, Colors.white)
+            score_text = title_font.render(f"{score['name']}: {score['score']}", True, Colors.pastel_cyan)
             screen.blit(score_text, (150, 450 + i * 30))
 
     #Renders name input screen        
@@ -334,4 +334,4 @@ while True:
             game.hold_block.row_offset, game.hold_block.column_offset = original_offset
 
     pygame.display.update()
-    clock.tick(100)
+    clock.tick(60)
