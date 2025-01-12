@@ -12,8 +12,8 @@ class LBlock(Block):
             3: [Position(0, 0), Position (0, 1), Position(1, 1), Position(2,1)]
         }
         self.move(0,3)
-        self.texture = pygame.image.load('./assets/sprites/l-block.png').convert_alpha()
-
+        self.texture = pygame.image.load('assets/sprites/l-block.png').convert_alpha()
+        
 class JBlock(Block):
     def __init__(self):
         super().__init__(id = 2)
@@ -24,7 +24,7 @@ class JBlock(Block):
             3: [Position(0, 1), Position (1, 1), Position(2, 0), Position(2,1)]
         }
         self.move(0,3)
-        self.texture = pygame.image.load('./assets/sprites/j-block.png').convert_alpha()
+        self.texture = pygame.image.load('assets/sprites/j-block.png').convert_alpha()
         
 class IBlock(Block):
     def __init__(self):
@@ -36,7 +36,7 @@ class IBlock(Block):
             3: [Position(0, 1), Position (1, 1), Position(2, 1), Position(3,1)]
         }
         self.move(-1,3)
-        self.texture = pygame.image.load('./assets/sprites/l-block.png').convert_alpha()
+        self.texture = pygame.image.load('assets/sprites/l-block.png').convert_alpha()
 
 class OBlock(Block):
     def __init__(self):
@@ -45,7 +45,7 @@ class OBlock(Block):
             0: [Position(0, 0), Position (0,1), Position(1,0), Position(1,1)]
         }
         self.move(0,4)
-        self.texture = pygame.image.load('./assets/sprites/o-block.png').convert_alpha()
+        self.texture = pygame.image.load('assets/sprites/o-block.png').convert_alpha()
 
 class SBlock(Block):
     def __init__(self):
@@ -57,7 +57,7 @@ class SBlock(Block):
             3: [Position(0, 0), Position (1,0), Position(1, 1), Position(2,1)]
         }
         self.move(0,3)
-        self.texture = pygame.image.load('./assets/sprites/s-block.png').convert_alpha()
+        self.texture = pygame.image.load('assets/sprites/s-block.png').convert_alpha()
 
 class TBlock(Block):
     def __init__(self):
@@ -69,7 +69,7 @@ class TBlock(Block):
             3: [Position(0, 1), Position (1,0), Position(1, 1), Position(2,1)]
         }
         self.move(0,3)
-        self.texture = pygame.image.load('./assets/sprites/t-block.png').convert_alpha()
+        self.texture = pygame.image.load('assets/sprites/t-block.png').convert_alpha()
 
 class ZBlock(Block):
     def __init__(self):
@@ -81,4 +81,4 @@ class ZBlock(Block):
             3: [Position(0,1), Position (1,0), Position(1, 1), Position(2,0)]
         }
         self.move(0,3)
-        self.texture = pygame.image.load('./assets/sprites/z-block.png').convert_alpha()
+        self.texture = pygame.image.load('assets/sprites/z-block.png').convert_alpha()

@@ -12,9 +12,6 @@ class Block():
         self.rotation_state = 0
         self.colors = Colors.get_cell_colors()
 
-        # Load the texture
-        self.texture = pygame.image.load('./assets/texture.png').convert_alpha()
-
     #Updates the block's position on the grid by adjusting its row and column offsets
     def move(self, rows, columns):
         self.row_offset += rows
